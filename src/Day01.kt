@@ -1,4 +1,4 @@
-enum class Digits(val value: Int) {
+private enum class Digits(val value: Int) {
     one(1),
     two(2),
     three(3),

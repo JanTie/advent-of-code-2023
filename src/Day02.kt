@@ -1,4 +1,4 @@
-fun parse(input: List<String>): List<Pair<Int, List<Map<String, Int>>>> =
+private fun parse(input: List<String>): List<Pair<Int, List<Map<String, Int>>>> =
     input
         .map { line ->
             val (game, setList) = line.split(": ")

@@ -1,4 +1,4 @@
-fun parse(input: List<String>, isValidCharacter: (Char) -> Boolean): List<List<Int>> {
+private fun parse(input: List<String>, isValidCharacter: (Char) -> Boolean): List<List<Int>> {
     val numbers = input.map { string -> Regex("[0-9]+").findAll(string) }
 
     return input.mapIndexed { y, string ->

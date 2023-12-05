@@ -1,6 +1,6 @@
 import kotlin.math.pow
 
-fun String.splitScratchCards(): List<List<Int>> = this.split(": ")
+private fun String.splitScratchCards(): List<List<Int>> = this.split(": ")
     .last()
     .split(" | ")
     .map {
