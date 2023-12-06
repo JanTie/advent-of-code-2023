@@ -1,32 +1,32 @@
-private fun parse(input: List<String>, isValidCharacter: (Char) -> Boolean): List<List<Int>> {
-    val numbers = input.map { string -> Regex("[0-9]+").findAll(string) }
+fun main() {
+    fun parse(input: List<String>, isValidCharacter: (Char) -> Boolean): List<List<Int>> {
+        val numbers = input.map { string -> Regex("[0-9]+").findAll(string) }
 
-    return input.mapIndexed { y, string ->
-        string.flatMapIndexed { x, char ->
-            if (isValidCharacter(char)) {
-                val sameLine = numbers[y].filter { it.range.first == x + 1 || it.range.last == x - 1 }
+        return input.mapIndexed { y, string ->
+            string.flatMapIndexed { x, char ->
+                if (isValidCharacter(char)) {
+                    val sameLine = numbers[y].filter { it.range.first == x + 1 || it.range.last == x - 1 }
 
-                val previousLine = if (y > 0) {
-                    numbers[y - 1].filter { it.range.contains(x) || it.range.contains(x + 1) || it.range.contains(x - 1) }
+                    val previousLine = if (y > 0) {
+                        numbers[y - 1].filter { it.range.contains(x) || it.range.contains(x + 1) || it.range.contains(x - 1) }
+                    } else {
+                        emptySequence()
+                    }
+
+                    val nextLine = if (y < input.lastIndex) {
+                        numbers[y + 1].filter { it.range.contains(x) || it.range.contains(x + 1) || it.range.contains(x - 1) }
+                    } else {
+                        emptySequence()
+                    }
+
+                    (previousLine + sameLine + nextLine).map { it.value.toInt() }.toList()
                 } else {
-                    emptySequence()
+                    emptyList()
                 }
-
-                val nextLine = if (y < input.lastIndex) {
-                    numbers[y + 1].filter { it.range.contains(x) || it.range.contains(x + 1) || it.range.contains(x - 1) }
-                } else {
-                    emptySequence()
-                }
-
-                (previousLine + sameLine + nextLine).map { it.value.toInt() }.toList()
-            } else {
-                emptyList()
             }
         }
     }
-}
 
-fun main() {
     fun part1(input: List<String>): Int {
         return parse(input) { char -> !char.isDigit() && char != '.' }
             .flatten()

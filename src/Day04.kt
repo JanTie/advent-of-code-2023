@@ -1,13 +1,13 @@
 import kotlin.math.pow
 
-private fun String.splitScratchCards(): List<List<Int>> = this.split(": ")
-    .last()
-    .split(" | ")
-    .map {
-        it.split(" ").mapNotNull { it.trim().takeIf { it.isNotEmpty() }?.toInt() }
-    }
-
 fun main() {
+    fun String.splitScratchCards(): List<List<Int>> = this.split(": ")
+        .last()
+        .split(" | ")
+        .map {
+            it.split(" ").mapNotNull { it.trim().takeIf { it.isNotEmpty() }?.toInt() }
+        }
+
     fun part1(input: List<String>): Int {
         return input.sumOf { line ->
             val (winningNumbers, myNumbers) = line.splitScratchCards()

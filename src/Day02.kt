@@ -1,21 +1,21 @@
-private fun parse(input: List<String>): List<Pair<Int, List<Map<String, Int>>>> =
-    input
-        .map { line ->
-            val (game, setList) = line.split(": ")
-            val gameId = game.split(" ").last().toInt()
-            val sets = setList.split("; ").map {
-                it.split(", ")
-                    .map {
-                        val (amount, color) = it.split(" ")
-                        color to amount.toInt()
-                    }
-                    .toMap()
+fun main() {
+    fun parse(input: List<String>): List<Pair<Int, List<Map<String, Int>>>> =
+        input
+            .map { line ->
+                val (game, setList) = line.split(": ")
+                val gameId = game.split(" ").last().toInt()
+                val sets = setList.split("; ").map {
+                    it.split(", ")
+                        .map {
+                            val (amount, color) = it.split(" ")
+                            color to amount.toInt()
+                        }
+                        .toMap()
+                }
+
+                gameId to sets
             }
 
-            gameId to sets
-        }
-
-fun main() {
     fun part1(input: List<String>): Int {
         return parse(input)
             .filter { (_, sets) ->
